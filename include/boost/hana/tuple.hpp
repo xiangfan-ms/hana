@@ -75,7 +75,11 @@ BOOST_HANA_NAMESPACE_BEGIN
     // tuple
     //////////////////////////////////////////////////////////////////////////
     template <>
+#ifdef BOOST_HANA_WORKAROUND_MSVC_EMPTYBASE
+    struct __declspec(empty_bases) tuple<>
+#else
     struct tuple<>
+#endif
         : detail::operators::adl<tuple<>>
         , detail::iterable_operators<tuple<>>
     {
@@ -84,7 +88,11 @@ BOOST_HANA_NAMESPACE_BEGIN
     };
 
     template <typename ...Xn>
+#ifdef BOOST_HANA_WORKAROUND_MSVC_EMPTYBASE
+    struct __declspec(empty_bases) tuple
+#else
     struct tuple
+#endif
         : detail::operators::adl<tuple<Xn...>>
         , detail::iterable_operators<tuple<Xn...>>
     {

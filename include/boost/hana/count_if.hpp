@@ -45,12 +45,30 @@ BOOST_HANA_NAMESPACE_BEGIN
     //! @endcond
 
     namespace detail {
+#ifdef BOOST_HANA_WORKAROUND_MSVC_PACKEXPANSION_DECLTYPE
+        template<typename T>
+        using count_pred_helper_void_t = void;
+
+        template <typename Pred, typename Xs, typename = void>
+        struct count_pred_helper {
+        };
+
+        template <typename Pred, typename Xs>
+        struct count_pred_helper<Pred, Xs, count_pred_helper_void_t<decltype((*std::declval<Pred>())(std::declval<Xs&&>()))>> {
+            static const bool value = Constant<decltype((*std::declval<Pred>())(std::declval<Xs&&>()))>::value;
+        };
+#endif
+
         template <typename Pred>
         struct count_pred {
             Pred pred;
             template <typename ...Xs, typename = typename std::enable_if<
                 detail::fast_and<
+#ifdef BOOST_HANA_WORKAROUND_MSVC_PACKEXPANSION_DECLTYPE
+                    count_pred_helper<Pred, Xs>::value...
+#else
                     Constant<decltype((*pred)(std::declval<Xs&&>()))>::value...
+#endif
                 >::value
             >::type>
             constexpr auto operator()(Xs&& ...xs) const {
@@ -65,7 +83,11 @@ BOOST_HANA_NAMESPACE_BEGIN
 
             template <typename ...Xs, typename = void, typename = typename std::enable_if<
                 !detail::fast_and<
+#ifdef BOOST_HANA_WORKAROUND_MSVC_PACKEXPANSION_DECLTYPE
+                    count_pred_helper<Pred, Xs>::value...
+#else
                     Constant<decltype((*pred)(std::declval<Xs&&>()))>::value...
+#endif
                 >::value
             >::type>
             constexpr auto operator()(Xs&& ...xs) const {

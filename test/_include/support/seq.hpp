@@ -16,7 +16,11 @@
 #include <boost/hana/unpack.hpp>
 
 
+#ifdef BOOST_HANA_WORKAROUND_MSVC_IS_CONVERTIBLE_INCOMPLETE_TAG
+struct Seq {};
+#else
 struct Seq;
+#endif
 
 template <typename Storage>
 struct seq_type {

@@ -26,11 +26,19 @@ namespace boost { namespace hana {
 }}
 
 int main() {
+#ifdef BOOST_HANA_WORKAROUND_MSVC_NARROWING_CONVERSION_FLOAT
+    BOOST_HANA_RUNTIME_CHECK(
+        hana::to<std::vector<int>>(std::vector<float>{1.1f, 2.2f, 3.3f})
+                        ==
+        std::vector<int>{1, 2, 3}
+    );
+#else
     BOOST_HANA_RUNTIME_CHECK(
         hana::to<std::vector<int>>(std::vector<float>{1.1, 2.2, 3.3})
                         ==
         std::vector<int>{1, 2, 3}
     );
+#endif
 
     static_assert(!hana::is_embedded<std::vector<float>, std::vector<int>>{}, "");
 }

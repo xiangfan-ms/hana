@@ -53,7 +53,11 @@ namespace boost { namespace fusion {
 
 BOOST_HANA_NAMESPACE_BEGIN
     namespace ext { namespace boost { namespace fusion {
+#ifdef BOOST_HANA_WORKAROUND_MSVC_IS_CONVERTIBLE_INCOMPLETE_TAG
+        struct list_tag {};
+#else
         struct list_tag;
+#endif
     }}}
 
     template <typename T>

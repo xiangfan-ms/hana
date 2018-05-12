@@ -22,20 +22,32 @@ int main() {
         ss << hana::experimental::print(
             hana::template_<foo::my_template>
         );
+#ifdef BOOST_HANA_WORKAROUND_MSVC_TYPEID_RESULT
+        BOOST_HANA_RUNTIME_CHECK(ss.str() == "struct boost::hana::template_t<struct foo::my_template>");
+#else
         BOOST_HANA_RUNTIME_CHECK(ss.str() == "template<foo::my_template>");
+#endif
     }
     {
         std::ostringstream ss;
         ss << hana::experimental::print(
             hana::metafunction<foo::my_mf>
         );
+#ifdef BOOST_HANA_WORKAROUND_MSVC_TYPEID_RESULT
+        BOOST_HANA_RUNTIME_CHECK(ss.str() == "struct boost::hana::metafunction_t<struct foo::my_mf>");
+#else
         BOOST_HANA_RUNTIME_CHECK(ss.str() == "metafunction<foo::my_mf>");
+#endif
     }
     {
         std::ostringstream ss;
         ss << hana::experimental::print(
             hana::metafunction_class<foo::my_mf_class>
         );
+#ifdef BOOST_HANA_WORKAROUND_MSVC_TYPEID_RESULT
+        BOOST_HANA_RUNTIME_CHECK(ss.str() == "struct boost::hana::metafunction_class_t<struct foo::my_mf_class>");
+#else
         BOOST_HANA_RUNTIME_CHECK(ss.str() == "metafunction_class<foo::my_mf_class>");
+#endif
     }
 }

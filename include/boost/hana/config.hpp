@@ -20,7 +20,27 @@ Distributed under the Boost Software License, Version 1.0.
 #if defined(_MSC_VER) && !defined(__clang__) // MSVC
     // This must be checked first, because otherwise it produces a fatal
     // error due to unrecognized #warning directives used below.
-#   pragma message("Warning: the native Microsoft compiler is not supported due to lack of proper C++14 support.")
+//#   pragma message("Warning: the native Microsoft compiler is not supported due to lack of proper C++14 support.")
+
+// Active issues
+#define BOOST_HANA_WORKAROUND_MSVC_MULTIPLECTOR
+#define BOOST_HANA_WORKAROUND_MSVC_NARROWING_CONVERSION_FLOAT
+#define BOOST_HANA_WORKAROUND_MSVC_PARSE_BRACE
+#define BOOST_HANA_WORKAROUND_MSVC_NESTED_GENERIC_LAMBDA
+#define BOOST_HANA_WORKAROUND_MSVC_PACKEXPANSION_DECLTYPE
+#define BOOST_HANA_WORKAROUND_MSVC_SFINAE_CONSTEXPR
+
+// Issues fixed conditionally
+#define BOOST_HANA_WORKAROUND_MSVC_EMPTYBASE
+
+// Known test failures
+// generic lambda and sizeof...
+//   test\type\is_valid.cpp
+#define BOOST_HANA_WORKAROUND_MSVC_269943_DISABLETEST
+
+// Source issues
+#define BOOST_HANA_WORKAROUND_MSVC_IS_CONVERTIBLE_INCOMPLETE_TAG
+#define BOOST_HANA_WORKAROUND_MSVC_TYPEID_RESULT
 
 #elif defined(__clang__) && defined(_MSC_VER) // Clang-cl (Clang for Windows)
 
@@ -72,7 +92,7 @@ Distributed under the Boost Software License, Version 1.0.
 //////////////////////////////////////////////////////////////////////////////
 #if (__cplusplus < 201400)
 #   if defined(_MSC_VER)
-#       pragma message("Warning: Your compiler doesn't provide C++14 or higher capabilities. Try adding the compiler flag '-std=c++14' or '-std=c++1y'.")
+//#       pragma message("Warning: Your compiler doesn't provide C++14 or higher capabilities. Try adding the compiler flag '-std=c++14' or '-std=c++1y'.")
 #   else
 #       warning "Your compiler doesn't provide C++14 or higher capabilities. Try adding the compiler flag '-std=c++14' or '-std=c++1y'."
 #   endif

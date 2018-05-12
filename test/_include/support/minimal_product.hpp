@@ -12,7 +12,11 @@
 #include <type_traits>
 
 
+#ifdef BOOST_HANA_WORKAROUND_MSVC_IS_CONVERTIBLE_INCOMPLETE_TAG
+struct MinimalProduct {};
+#else
 struct MinimalProduct;
+#endif
 
 template <typename X, typename Y>
 struct product_t {
