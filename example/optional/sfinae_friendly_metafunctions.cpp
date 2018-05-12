@@ -25,9 +25,18 @@ struct has_type<T, void_t<typename T::type>>
     : std::true_type
 { };
 
+#ifdef BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_RETURN_TYPE
+struct generic_lambda {
+    template<typename T, typename U> auto operator()(T t, U u) -> hana::type<
+        decltype(true ? hana::traits::declval(t) : hana::traits::declval(u))
+    > { return {}; }
+};
+auto common_type_impl = hana::sfinae(generic_lambda{});
+#else
 auto common_type_impl = hana::sfinae([](auto t, auto u) -> hana::type<
     decltype(true ? hana::traits::declval(t) : hana::traits::declval(u))
 > { return {}; });
+#endif
 
 template <typename T, typename U>
 using common_type = decltype(common_type_impl(hana::type_c<T>, hana::type_c<U>));

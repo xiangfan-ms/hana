@@ -11,6 +11,14 @@
 namespace hana = boost::hana;
 
 
+#ifdef BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_RETURN_TYPE
+struct generic_lambda {
+    template<typename T> auto operator()(T t) -> hana::type<
+        typename decltype(t)::type::value_type
+    > { }
+};
+#endif
+
 int main() {
     // Checking for a member
     struct Person { std::string name; };
@@ -22,9 +30,13 @@ int main() {
 
 
     // Checking for a nested type
+#ifdef BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_RETURN_TYPE
+    auto has_value_type = hana::is_valid(generic_lambda{});
+#else
     auto has_value_type = hana::is_valid([](auto t) -> hana::type<
         typename decltype(t)::type::value_type
     > { });
+#endif
 
     static_assert(has_value_type(hana::type_c<std::vector<int>>), "");
     static_assert(!has_value_type(hana::type_c<Person>), "");

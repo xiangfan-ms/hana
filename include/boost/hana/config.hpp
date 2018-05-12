@@ -26,9 +26,14 @@ Distributed under the Boost Software License, Version 1.0.
 #define BOOST_HANA_WORKAROUND_MSVC_MULTIPLECTOR
 #define BOOST_HANA_WORKAROUND_MSVC_NARROWING_CONVERSION_FLOAT
 #define BOOST_HANA_WORKAROUND_MSVC_PARSE_BRACE
-#define BOOST_HANA_WORKAROUND_MSVC_NESTED_GENERIC_LAMBDA
+#define BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_RETURN_TYPE
 #define BOOST_HANA_WORKAROUND_MSVC_PACKEXPANSION_DECLTYPE
 #define BOOST_HANA_WORKAROUND_MSVC_SFINAE_CONSTEXPR
+#define BOOST_HANA_WORKAROUND_MSVC_PREPROCESSOR
+
+// Nested generic lambda
+//   test\index_if.cpp
+#define BOOST_HANA_WORKAROUND_MSVC_NESTED_GENERIC_LAMBDA_615453
 
 // Issues fixed conditionally
 #define BOOST_HANA_WORKAROUND_MSVC_EMPTYBASE
@@ -41,6 +46,42 @@ Distributed under the Boost Software License, Version 1.0.
 // Source issues
 #define BOOST_HANA_WORKAROUND_MSVC_IS_CONVERTIBLE_INCOMPLETE_TAG
 #define BOOST_HANA_WORKAROUND_MSVC_TYPEID_RESULT
+
+// Boost related issues
+
+// For the related tests to pass, the following logic in boost 1.64 should be updated:
+//
+//   boost\fusion\container\deque\deque_fwd.hpp
+//
+//   // MSVC variadics at this point in time is not ready yet (ICE!)
+//   #if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1900))
+//   # if defined(BOOST_FUSION_HAS_VARIADIC_DEQUE)
+//   #   undef BOOST_FUSION_HAS_VARIADIC_DEQUE
+//   # endif
+//   #endif
+//
+// In boost 1.67, the condition is changed to
+//
+//   #if BOOST_WORKAROUND(BOOST_MSVC, < 1910)
+//
+// Otherwise 'test\ext\boost\fusion\deque\auto\_specs.hpp' needs to define something like
+//   #define FUSION_MAX_VECTOR_SIZE 50
+//
+// Impacted tests:
+//   test\ext\boost\fusion\deque\auto
+//#define BOOST_HANA_WORKAROUND_MSVC_BOOST_FUSION_DEQUE_SIZE
+
+// BOOST_HANA_CONFIG_ENABLE_STRING_UDL requires GNU extension
+// BOOST_HANA_STRING requires C++17 because of constexpr lambdas
+#if _MSVC_LANG > 201402
+// Use BOOST_HANA_STRING if /std:c++17 is used
+#define BOOST_HANA_WORKAROUND_MSVC_NO_STRING_UDL
+#endif
+
+// boost::mpl::aux::vector_tag depends on BOOST_MPL_CFG_TYPEOF_BASED_SEQUENCES
+// It is a class if the macro is defined.
+// It is a class template if the macro is not defined
+#define BOOST_HANA_WORKAROUND_MSVC_MPL_NO_TYPEOF
 
 #elif defined(__clang__) && defined(_MSC_VER) // Clang-cl (Clang for Windows)
 

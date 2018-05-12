@@ -14,9 +14,18 @@
 namespace hana = boost::hana;
 
 
+#ifdef BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_RETURN_TYPE
+struct lambda {
+    template<typename T, typename U> auto operator()(T&& t, U&& u) -> hana::type<
+        std::decay_t<decltype(true ? hana::traits::declval(t) : hana::traits::declval(u))>
+    > { return {}; }
+};
+auto builtin_common_t = hana::sfinae(lambda{});
+#else
 auto builtin_common_t = hana::sfinae([](auto&& t, auto&& u) -> hana::type<
     std::decay_t<decltype(true ? hana::traits::declval(t) : hana::traits::declval(u))>
 > { return {}; });
+#endif
 
 template <typename ...T>
 struct common_type { };
@@ -24,8 +33,8 @@ struct common_type { };
 template <typename T, typename U>
 struct common_type<T, U>
 #ifdef BOOST_HANA_WORKAROUND_MSVC_PARSE_BRACE
-    : std::conditional_t<std::is_same<std::decay_t<T>, T>::value &&
-                         std::is_same<std::decay_t<U>, U>::value,
+    : std::conditional_t<(std::is_same<std::decay_t<T>, T>{}) &&
+                         (std::is_same<std::decay_t<U>, U>{}),
 #else
     : std::conditional_t<std::is_same<std::decay_t<T>, T>{} &&
                          std::is_same<std::decay_t<U>, U>{},

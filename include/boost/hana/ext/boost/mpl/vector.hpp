@@ -99,9 +99,23 @@ BOOST_HANA_NAMESPACE_BEGIN
         using vector_tag = ::boost::mpl::sequence_tag< ::boost::mpl::vector<>>::type;
     }}}
 
+#ifdef BOOST_HANA_WORKAROUND_MSVC_MPL_NO_TYPEOF
+    template<typename T1, typename T2>
+    struct is_same_mpl_vector_tag : std::false_type {
+    };
+
+    template<template<long> class T, long l1, long l2>
+    struct is_same_mpl_vector_tag<T<l1>, T<l2>> : std::true_type {
+    };
+#endif
+
     template <typename T>
     struct tag_of<T, when<
+#ifdef BOOST_HANA_WORKAROUND_MSVC_MPL_NO_TYPEOF
+        is_same_mpl_vector_tag<
+#else
         std::is_same<
+#endif
             typename ::boost::mpl::sequence_tag<T>::type,
             ::boost::mpl::sequence_tag< ::boost::mpl::vector<>>::type
         >::value

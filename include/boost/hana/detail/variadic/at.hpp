@@ -17,6 +17,10 @@ Distributed under the Boost Software License, Version 1.0.
 
 
 BOOST_HANA_NAMESPACE_BEGIN namespace detail { namespace variadic {
+#ifdef BOOST_HANA_WORKAROUND_MSVC_PACKEXPANSION_DECLTYPE
+    template<std::size_t> struct at_ignore_function_parameter_helper { using type = void *; };
+#endif
+
     template <std::size_t n, typename = std::make_index_sequence<n>>
     struct at_type;
 
@@ -24,7 +28,11 @@ BOOST_HANA_NAMESPACE_BEGIN namespace detail { namespace variadic {
     struct at_type<n, std::index_sequence<ignore...>> {
     private:
         template <typename Nth>
+#ifdef BOOST_HANA_WORKAROUND_MSVC_PACKEXPANSION_DECLTYPE
+        static constexpr auto go(typename at_ignore_function_parameter_helper<ignore>::type..., Nth nth, ...)
+#else
         static constexpr auto go(decltype(ignore, (void*)0)..., Nth nth, ...)
+#endif
         { return nth; }
 
     public:

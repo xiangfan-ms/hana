@@ -16,9 +16,16 @@ int main() {
     // Tests hana::index_if on an infinite iterable
     constexpr Counter<> c{};
     auto pred = [](auto i) {
+#ifdef BOOST_HANA_WORKAROUND_MSVC_NESTED_GENERIC_LAMBDA_615453
+        using type = decltype(i);
+        return [=](auto x) {
+            return hana::bool_c<decltype(x)::value == type::value>;
+        };
+#else
         return [=](auto x) {
             return hana::bool_c<decltype(x)::value == decltype(i)::value>;
         };
+#endif
     };
 
     static_assert(hana::value(decltype(hana::index_if(c, pred(hana::size_c<0>)).value()){}) == 0, "");
