@@ -14,6 +14,17 @@
 namespace hana = boost::hana;
 
 
+#ifdef BOOST_HANA_WORKAROUND_MSVC_DECLTYPE_ARRAY
+BOOST_HANA_NAMESPACE_BEGIN namespace detail {
+    template <std::size_t N>
+    struct EqualityComparable<std::string, char[N], void> : std::true_type {
+    };
+    template <std::size_t N>
+    struct EqualityComparable<char[N], std::string, void> : std::true_type {
+    };
+} } }
+#endif
+
 struct Fish { std::string name; };
 struct Cat  { std::string name; };
 struct Dog  { std::string name; };

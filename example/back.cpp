@@ -8,6 +8,11 @@ namespace hana = boost::hana;
 
 
 static_assert(hana::back(hana::make_tuple(1, '2', 3.3)) == 3.3, "");
+#ifdef BOOST_HANA_WORKAROUND_MSVC_CONSTEXPR_NULLPTR
+int p;
+static_assert(hana::back(hana::make_tuple(1, '2', 3.3, &p)) == &p, "");
+#else
 static_assert(hana::back(hana::make_tuple(1, '2', 3.3, nullptr)) == nullptr, "");
+#endif
 
 int main() { }

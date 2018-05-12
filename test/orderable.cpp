@@ -48,6 +48,17 @@ namespace boost { namespace hana {
     };
 }}
 
+#ifdef BOOST_HANA_WORKAROUND_MSVC_DECLTYPE_ARRAY
+BOOST_HANA_NAMESPACE_BEGIN namespace detail {
+    template <std::size_t N>
+    struct LessThanComparable<std::string, char[N], void> : std::true_type {
+    };
+    template <std::size_t N>
+    struct LessThanComparable<char[N], std::string, void> : std::true_type {
+    };
+} } }
+#endif
+
 int main() {
     // laws
     hana::test::TestOrderable<int>{hana::make_tuple(0,1,2,3,4,5)};

@@ -27,6 +27,8 @@ Distributed under the Boost Software License, Version 1.0.
 #include <utility>
 
 
+#define BOOST_HANA_WORKAROUND_MSVC_CONSTEXPR_ARRAY
+
 BOOST_HANA_NAMESPACE_BEGIN
     //! @cond
     template <typename Xs>
@@ -82,6 +84,33 @@ BOOST_HANA_NAMESPACE_BEGIN
             static constexpr std::size_t n_groups =
                     detail::count(bs, bs + sizeof(bs), false) + 1;
 
+#ifdef BOOST_HANA_WORKAROUND_MSVC_CONSTEXPR_ARRAY
+            static constexpr auto compute_info(std::size_t index) {
+                std::size_t size = 0, offset = 0;
+                for (std::size_t g = 0, i = 0; g < n_groups; ++g) {
+                    size = 1;
+                    while (i < sizeof...(b) && bs[i++])
+                        ++size;
+
+                    if (g == index) break;
+
+                    offset += size;
+                }
+                return std::make_pair(offset, size);
+            }
+
+            template <std::size_t i>
+            static constexpr auto finish_helper()
+            {
+                constexpr auto info = compute_info(i);
+                constexpr auto offset = info.first;
+                constexpr auto group_size = info.second;
+
+                return typename offset_by<
+                    offset, std::make_index_sequence<group_size>
+                >::type{};
+            }
+#else
             static constexpr auto compute_info() {
                 detail::array<std::size_t, n_groups> sizes{}, offsets{};
                 for (std::size_t g = 0, i = 0, offset = 0; g < n_groups; ++g) {
@@ -99,16 +128,21 @@ BOOST_HANA_NAMESPACE_BEGIN
             static constexpr auto info = compute_info();
             static constexpr auto group_offsets = info.first;
             static constexpr auto group_sizes = info.second;
+#endif
 
             template <typename S, typename Xs, std::size_t ...i>
             static constexpr auto finish(Xs&& xs, std::index_sequence<i...>) {
                 return hana::make<S>(
                     detail::get_subsequence_(
                         static_cast<Xs&&>(xs),
+#ifdef BOOST_HANA_WORKAROUND_MSVC_CONSTEXPR_ARRAY
+                        finish_helper<i>()
+#else
                         typename offset_by<
                             group_offsets[i],
                             std::make_index_sequence<group_sizes[i]>
                         >::type{}
+#endif
                     )...
                 );
             }
