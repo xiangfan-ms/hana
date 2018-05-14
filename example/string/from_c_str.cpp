@@ -10,7 +10,11 @@
 namespace hana = boost::hana;
 
 
+#ifdef BOOST_HANA_WORKAROUND_MSVC_NONTYPE_TEMPLATE_PARAMETER_INTERNAL
+extern constexpr char const hello[] = "hello";
+#else
 constexpr char const hello[] = "hello";
+#endif
 auto hello_constant = hana::integral_constant<char const*, hello>{};
 
 BOOST_HANA_CONSTANT_CHECK(

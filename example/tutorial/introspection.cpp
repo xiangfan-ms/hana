@@ -51,8 +51,16 @@ auto optionalToString(T const& obj)
 //! [optionalToString.then]
 
 // make sure they compile
+#ifdef BOOST_HANA_WORKAROUND_MSVC_DECLTYPE_EXPLICIT_SPECIALIZATION
+void dummy()
+{
+    optionalToString(yes{});
+    optionalToString(no{});
+}
+#else
 template std::string optionalToString(yes const&);
 template std::string optionalToString(no const&);
+#endif
 }
 
 //! [optionalToString]
@@ -98,10 +106,17 @@ BOOST_HANA_CONSTANT_CHECK(!has_member(hana::type_c<Bar>));
 }{
 
 //! [nested_type_name]
+#ifdef BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_RETURN_TYPE
+auto has_member = hana::is_valid([](auto t) -> decltype(hana::type<
+  typename decltype(t)::type::member
+//^^^^^^^^ needed because of the dependent context
+>{}) { });
+#else
 auto has_member = hana::is_valid([](auto t) -> hana::type<
   typename decltype(t)::type::member
 //^^^^^^^^ needed because of the dependent context
 > { });
+#endif
 
 struct Foo { struct member; /* not defined! */ };
 struct Bar { };

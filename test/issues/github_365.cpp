@@ -14,6 +14,7 @@
 namespace hana = boost::hana;
 
 
+#ifndef BOOST_HANA_WORKAROUND_MSVC_GITHUB365_DISABLETEST
 //
 // This test makes sure that `hana::accessors` does not decay C-style array
 // members to pointers.
@@ -59,3 +60,8 @@ int main() {
         BOOST_HANA_RUNTIME_CHECK(array[2] == 3.0f);
     }
 }
+#else
+int main()
+{
+}
+#endif

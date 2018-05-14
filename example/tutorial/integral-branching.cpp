@@ -48,8 +48,10 @@ int main() {
     std::unique_ptr<int> a = ns1::make_unique<int>(3);
     std::unique_ptr<Student> b = ns1::make_unique<Student>("Bob", 25);
   }
+#ifndef BOOST_HANA_WORKAROUND_MSVC_LAMBDA_CAPTURE_PARAMETERPACK_DISABLETEST
   {
     std::unique_ptr<int> a = ns2::make_unique<int>(3);
     std::unique_ptr<Student> b = ns2::make_unique<Student>("Bob", 25);
   }
+#endif
 }

@@ -42,6 +42,9 @@ namespace boost { namespace hana { namespace test {
             });
 
             hana::for_each(xs, hana::capture(types)([](auto types, auto c) {
+#ifdef BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_NAME_HIDING
+                using T = typename C::value_type;
+#endif
 
                 // constexpr-ness of hana::value(c)
                 constexpr auto must_be_constexpr1 = hana::value(c);

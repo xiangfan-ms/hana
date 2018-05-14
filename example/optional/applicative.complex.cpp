@@ -13,6 +13,25 @@
 namespace hana = boost::hana;
 
 
+#ifdef BOOST_HANA_WORKAROUND_MSVC_VARIABLE_TEMPLATE_EXPLICIT_SPECIALIZATION
+template<char op>
+constexpr auto function_helper() { return hana::nothing; }
+template<>
+auto function_helper<'+'>() {
+    return hana::just([](auto x, auto y) {
+        return x + y;
+    });
+}
+template<>
+auto function_helper<'-'>() {
+    return hana::just([](auto x, auto y) {
+        return x - y;
+    });
+}
+
+template <char op>
+auto function = function_helper<op>();
+#else
 template <char op>
 constexpr auto function = hana::nothing;
 
@@ -25,6 +44,7 @@ template <>
 BOOST_HANA_CONSTEXPR_LAMBDA auto function<'-'> = hana::just([](auto x, auto y) {
     return x - y;
 });
+#endif
 
 // and so on...
 

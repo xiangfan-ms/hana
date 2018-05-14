@@ -53,11 +53,13 @@ TestCase test_for_each{[]{
     // Make sure for_each is constexpr when used with a constexpr function
     // and constexpr arguments. This used not to be the case.
 #ifndef MAKE_TUPLE_NO_CONSTEXPR
+#ifndef BOOST_HANA_WORKAROUND_MSVC_FOR_EACH_DISABLETEST
     {
         struct f { constexpr void operator()(int) const { } };
         constexpr int i = (hana::for_each(MAKE_TUPLE(1, 2, 3), f{}), 0);
         (void)i;
     }
+#endif
 #endif
 }};
 

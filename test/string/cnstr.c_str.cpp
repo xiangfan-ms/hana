@@ -13,11 +13,19 @@
 namespace hana = boost::hana;
 
 
+#ifdef BOOST_HANA_WORKAROUND_MSVC_NONTYPE_TEMPLATE_PARAMETER_INTERNAL
+extern constexpr char const empty[] = "";
+extern constexpr char const a[] = "a";
+extern constexpr char const ab[] = "ab";
+extern constexpr char const abc[] = "abc";
+extern constexpr char const abcd[] = "abcd";
+#else
 constexpr char const empty[] = "";
 constexpr char const a[] = "a";
 constexpr char const ab[] = "ab";
 constexpr char const abc[] = "abc";
 constexpr char const abcd[] = "abcd";
+#endif
 
 int main() {
     {

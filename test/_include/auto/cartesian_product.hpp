@@ -215,6 +215,22 @@ TestCase test_cartesian_product{[]{
         )
     ), "");
 
+#ifdef BOOST_HANA_WORKAROUND_MSVC_CONSTEXPR_NULLPTR
+    int p;
+    static_assert(hana::equal(
+        hana::cartesian_product(MAKE_TUPLE(
+            MAKE_TUPLE(1),
+            MAKE_TUPLE('a'),
+            MAKE_TUPLE(1.f),
+            MAKE_TUPLE(1l, 2l),
+            MAKE_TUPLE(&p)
+        )),
+        MAKE_TUPLE(
+            MAKE_TUPLE(1, 'a', 1.f, 1l, &p),
+            MAKE_TUPLE(1, 'a', 1.f, 2l, &p)
+        )
+    ), "");
+#else
     static_assert(hana::equal(
         hana::cartesian_product(MAKE_TUPLE(
             MAKE_TUPLE(1),
@@ -228,6 +244,7 @@ TestCase test_cartesian_product{[]{
             MAKE_TUPLE(1, 'a', 1.f, 2l, nullptr)
         )
     ), "");
+#endif
 #endif
 }};
 

@@ -93,14 +93,20 @@ int main() {
     // Member access
     constexpr int i = 4;
     constexpr int array[] = {0, 1, 2};
+#ifndef BOOST_HANA_WORKAROUND_MSVC_CONSTEXPR_ADDRESS_DISABLETEST
     BOOST_HANA_TEST_UNARY_OP(*, &i)
+#endif
 
+#ifndef BOOST_HANA_WORKAROUND_MSVC_CONSTEXPR_ARRAY_DISABLETEST
     static_assert(_[0](array) == array[0], "");
+#endif
     BOOST_HANA_RUNTIME_CHECK(_[0](array, extra) == array[0]);
     BOOST_HANA_RUNTIME_CHECK(_[0](array, extra, extra) == array[0]);
+#ifndef BOOST_HANA_WORKAROUND_MSVC_CONSTEXPR_ARRAY_DISABLETEST
     static_assert(_[1](array) == array[1], "");
     static_assert(_[1](array) == array[1], "");
     static_assert(_[2](array) == array[2], "");
+#endif
     static_assert(!valid_call(_[invalid]), "");
     static_assert(!valid_call(_[invalid], array), "");
     static_assert(!valid_call(_[invalid], invalid), "");

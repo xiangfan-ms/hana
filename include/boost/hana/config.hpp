@@ -26,14 +26,19 @@ Distributed under the Boost Software License, Version 1.0.
 #define BOOST_HANA_WORKAROUND_MSVC_MULTIPLECTOR
 #define BOOST_HANA_WORKAROUND_MSVC_NARROWING_CONVERSION_FLOAT
 #define BOOST_HANA_WORKAROUND_MSVC_PARSE_BRACE
+#define BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_NAME_HIDING
 #define BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_RETURN_TYPE
 #define BOOST_HANA_WORKAROUND_MSVC_PACKEXPANSION_DECLTYPE
 #define BOOST_HANA_WORKAROUND_MSVC_CONSTEXPR_ARRAY
 #define BOOST_HANA_WORKAROUND_MSVC_CONSTEXPR_NULLPTR
 #define BOOST_HANA_WORKAROUND_MSVC_PRINTF_WARNING
 #define BOOST_HANA_WORKAROUND_MSVC_DECLTYPE_ARRAY
+#define BOOST_HANA_WORKAROUND_MSVC_DECLTYPE_EXPLICIT_SPECIALIZATION
 #define BOOST_HANA_WORKAROUND_MSVC_SFINAE_CONSTEXPR
 #define BOOST_HANA_WORKAROUND_MSVC_PREPROCESSOR
+#define BOOST_HANA_WORKAROUND_MSVC_NONTYPE_TEMPLATE_PARAMETER_INTERNAL
+// Note, the workaround requires /Zc:externConstexpr
+#define BOOST_HANA_WORKAROUND_MSVC_VARIABLE_TEMPLATE_EXPLICIT_SPECIALIZATION
 
 // Nested generic lambda
 //   test\index_if.cpp
@@ -46,6 +51,26 @@ Distributed under the Boost Software License, Version 1.0.
 // generic lambda and sizeof...
 //   test\type\is_valid.cpp
 #define BOOST_HANA_WORKAROUND_MSVC_269943_DISABLETEST
+// error C2131: expression did not evaluate to a constant
+//   test\_include\auto\for_each.hpp
+#define BOOST_HANA_WORKAROUND_MSVC_FOR_EACH_DISABLETEST
+// error C3520: 'Args': parameter pack must be expanded in this context
+//   example\tutorial\integral-branching.cpp
+#define BOOST_HANA_WORKAROUND_MSVC_LAMBDA_CAPTURE_PARAMETERPACK_DISABLETEST
+//   test\functional\placeholder.cpp
+#define BOOST_HANA_WORKAROUND_MSVC_CONSTEXPR_ADDRESS_DISABLETEST
+#define BOOST_HANA_WORKAROUND_MSVC_CONSTEXPR_ARRAY_DISABLETEST
+
+// Member with the same name as the enclosing class
+#if 0
+struct S {
+    int S;
+    using type = decltype(&S::S);
+};
+#endif
+#define BOOST_HANA_WORKAROUND_MSVC_GITHUB113_DISABLETEST
+// Member with array type
+#define BOOST_HANA_WORKAROUND_MSVC_GITHUB365_DISABLETEST
 
 // Source issues
 #define BOOST_HANA_WORKAROUND_MSVC_IS_CONVERTIBLE_INCOMPLETE_TAG

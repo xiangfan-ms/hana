@@ -64,14 +64,24 @@ BOOST_HANA_NAMESPACE_BEGIN
         { return false; }
 
 #ifdef BOOST_HANA_WORKAROUND_MSVC_SFINAE_CONSTEXPR
-        template<typename T, T * = nullptr>
+        template<typename T, typename = bool>
         struct is_std_integral_constant_t
+        {
+        };
+
+        template<typename T>
+        struct is_std_integral_constant_t<T, decltype(is_std_integral_constant((T*)0))>
         {
             static constexpr bool value = is_std_integral_constant((T*)0);
         };
 
-        template<typename T, T * = nullptr>
+        template<typename T, typename = bool>
         struct is_hana_integral_constant_t
+        {
+        };
+
+        template<typename T>
+        struct is_hana_integral_constant_t<T, decltype(is_hana_integral_constant((T*)0))>
         {
             static constexpr bool value = is_hana_integral_constant((T*)0);
         };
