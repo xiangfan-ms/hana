@@ -51,7 +51,7 @@ auto optionalToString(T const& obj)
 //! [optionalToString.then]
 
 // make sure they compile
-#ifdef BOOST_HANA_WORKAROUND_MSVC_DECLTYPE_EXPLICIT_SPECIALIZATION
+#ifdef BOOST_HANA_WORKAROUND_MSVC_DECLTYPE_EXPLICIT_SPECIALIZATION_508556
 void dummy()
 {
     optionalToString(yes{});

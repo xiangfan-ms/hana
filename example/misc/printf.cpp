@@ -61,7 +61,7 @@ int main() {
     );
 
     hana::unpack(args, [](auto fmt, auto ...args) {
-#ifdef BOOST_HANA_WORKAROUND_MSVC_PRINTF_WARNING
+#ifdef BOOST_HANA_WORKAROUND_MSVC_PRINTF_WARNING_506518
         auto fmt2 = hana::to<char const*>(fmt);
         std::printf(fmt2, args...);
 #else

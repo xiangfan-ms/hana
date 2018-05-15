@@ -13,7 +13,7 @@
 namespace hana = boost::hana;
 
 
-#ifdef BOOST_HANA_WORKAROUND_MSVC_VARIABLE_TEMPLATE_EXPLICIT_SPECIALIZATION
+#ifdef BOOST_HANA_WORKAROUND_MSVC_VARIABLE_TEMPLATE_EXPLICIT_SPECIALIZATION_616151
 template<char op>
 constexpr auto function_helper() { return hana::nothing; }
 template<>

@@ -42,7 +42,7 @@ namespace boost { namespace hana { namespace test {
             });
 
             hana::for_each(xs, hana::capture(types)([](auto types, auto c) {
-#ifdef BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_NAME_HIDING
+#ifdef BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_NAME_HIDING_616190
                 using T = typename C::value_type;
 #endif
 

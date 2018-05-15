@@ -63,7 +63,7 @@ BOOST_HANA_NAMESPACE_BEGIN
         constexpr bool is_hana_integral_constant(...)
         { return false; }
 
-#ifdef BOOST_HANA_WORKAROUND_MSVC_SFINAE_CONSTEXPR
+#ifdef BOOST_HANA_WORKAROUND_MSVC_SFINAE_CONSTEXPR_616157
         template<typename T, typename = bool>
         struct is_std_integral_constant_t
         {
@@ -90,7 +90,7 @@ BOOST_HANA_NAMESPACE_BEGIN
 
     template <typename T>
     struct tag_of<T, when<
-#ifdef BOOST_HANA_WORKAROUND_MSVC_SFINAE_CONSTEXPR
+#ifdef BOOST_HANA_WORKAROUND_MSVC_SFINAE_CONSTEXPR_616157
         detail::is_std_integral_constant_t<T>::value &&
         !detail::is_hana_integral_constant_t<T>::value
 #else

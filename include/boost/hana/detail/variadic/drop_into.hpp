@@ -17,7 +17,7 @@ Distributed under the Boost Software License, Version 1.0.
 
 
 BOOST_HANA_NAMESPACE_BEGIN namespace detail { namespace variadic {
-#ifdef BOOST_HANA_WORKAROUND_MSVC_PACKEXPANSION_DECLTYPE
+#ifdef BOOST_HANA_WORKAROUND_MSVC_PACKEXPANSION_DECLTYPE_616024
     template<std::size_t> struct dropper_ignore_function_parameter_helper { using type = void *; };
 #endif
 
@@ -29,7 +29,7 @@ BOOST_HANA_NAMESPACE_BEGIN namespace detail { namespace variadic {
         F f;
 
         template <typename ...Rest>
-#ifdef BOOST_HANA_WORKAROUND_MSVC_PACKEXPANSION_DECLTYPE
+#ifdef BOOST_HANA_WORKAROUND_MSVC_PACKEXPANSION_DECLTYPE_616024
         constexpr auto go(typename dropper_ignore_function_parameter_helper<ignore>::type..., Rest ...rest) const
 #else
         constexpr auto go(decltype(ignore, (void*)0)..., Rest ...rest) const

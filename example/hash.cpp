@@ -19,7 +19,7 @@ namespace hana = boost::hana;
 template <typename T>
 struct bucket { };
 
-#ifdef BOOST_HANA_WORKAROUND_MSVC_PACKEXPANSION_DECLTYPE
+#ifdef BOOST_HANA_WORKAROUND_MSVC_PACKEXPANSION_DECLTYPE_616094
 template<typename T>
 struct helper {
     using type = typename decltype(hana::hash(std::declval<T>()))::type;
@@ -28,7 +28,7 @@ struct helper {
 
 template <typename ...T>
 struct set
-#ifdef BOOST_HANA_WORKAROUND_MSVC_PACKEXPANSION_DECLTYPE
+#ifdef BOOST_HANA_WORKAROUND_MSVC_PACKEXPANSION_DECLTYPE_616094
     : bucket<typename helper<T>::type>...
 #else
     : bucket<typename decltype(hana::hash(std::declval<T>()))::type>...
@@ -38,11 +38,7 @@ struct set
 template <typename Set, typename T>
 struct contains
     : std::is_base_of<
-#ifdef BOOST_HANA_WORKAROUND_MSVC_PACKEXPANSION_DECLTYPE
-        bucket<typename helper<T>::type>,
-#else
         bucket<typename decltype(hana::hash(std::declval<T>()))::type>,
-#endif
         Set
     >
 { };

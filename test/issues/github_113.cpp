@@ -7,7 +7,7 @@
 namespace hana = boost::hana;
 
 
-#ifndef BOOST_HANA_WORKAROUND_MSVC_GITHUB113_DISABLETEST
+#ifndef BOOST_HANA_WORKAROUND_MSVC_PARSEQNAME_616018_DISABLETEST
 struct Person {
     BOOST_HANA_DEFINE_STRUCT(Person,
         (int, Person)

@@ -32,7 +32,7 @@ struct common_type { };
 
 template <typename T, typename U>
 struct common_type<T, U>
-#ifdef BOOST_HANA_WORKAROUND_MSVC_PARSE_BRACE
+#ifdef BOOST_HANA_WORKAROUND_MSVC_PARSE_BRACE_616118
     : std::conditional_t<(std::is_same<std::decay_t<T>, T>{}) &&
                          (std::is_same<std::decay_t<U>, U>{}),
 #else

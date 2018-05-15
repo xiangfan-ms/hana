@@ -27,8 +27,6 @@ Distributed under the Boost Software License, Version 1.0.
 #include <utility>
 
 
-#define BOOST_HANA_WORKAROUND_MSVC_CONSTEXPR_ARRAY
-
 BOOST_HANA_NAMESPACE_BEGIN
     //! @cond
     template <typename Xs>
@@ -84,7 +82,7 @@ BOOST_HANA_NAMESPACE_BEGIN
             static constexpr std::size_t n_groups =
                     detail::count(bs, bs + sizeof(bs), false) + 1;
 
-#ifdef BOOST_HANA_WORKAROUND_MSVC_CONSTEXPR_ARRAY
+#ifdef BOOST_HANA_WORKAROUND_MSVC_CONSTEXPR_ARRAY_399280
             static constexpr auto compute_info(std::size_t index) {
                 std::size_t size = 0, offset = 0;
                 for (std::size_t g = 0, i = 0; g < n_groups; ++g) {
@@ -135,7 +133,7 @@ BOOST_HANA_NAMESPACE_BEGIN
                 return hana::make<S>(
                     detail::get_subsequence_(
                         static_cast<Xs&&>(xs),
-#ifdef BOOST_HANA_WORKAROUND_MSVC_CONSTEXPR_ARRAY
+#ifdef BOOST_HANA_WORKAROUND_MSVC_CONSTEXPR_ARRAY_399280
                         finish_helper<i>()
 #else
                         typename offset_by<

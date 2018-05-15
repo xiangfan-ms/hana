@@ -24,25 +24,57 @@ Distributed under the Boost Software License, Version 1.0.
 
 // Active issues
 #define BOOST_HANA_WORKAROUND_MSVC_MULTIPLECTOR
-#define BOOST_HANA_WORKAROUND_MSVC_NARROWING_CONVERSION_FLOAT
-#define BOOST_HANA_WORKAROUND_MSVC_PARSE_BRACE
-#define BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_NAME_HIDING
 #define BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_RETURN_TYPE
 #define BOOST_HANA_WORKAROUND_MSVC_PACKEXPANSION_DECLTYPE
-#define BOOST_HANA_WORKAROUND_MSVC_CONSTEXPR_ARRAY
-#define BOOST_HANA_WORKAROUND_MSVC_CONSTEXPR_NULLPTR
-#define BOOST_HANA_WORKAROUND_MSVC_PRINTF_WARNING
-#define BOOST_HANA_WORKAROUND_MSVC_DECLTYPE_ARRAY
-#define BOOST_HANA_WORKAROUND_MSVC_DECLTYPE_EXPLICIT_SPECIALIZATION
-#define BOOST_HANA_WORKAROUND_MSVC_SFINAE_CONSTEXPR
 #define BOOST_HANA_WORKAROUND_MSVC_PREPROCESSOR
-#define BOOST_HANA_WORKAROUND_MSVC_NONTYPE_TEMPLATE_PARAMETER_INTERNAL
-// Note, the workaround requires /Zc:externConstexpr
-#define BOOST_HANA_WORKAROUND_MSVC_VARIABLE_TEMPLATE_EXPLICIT_SPECIALIZATION
 
+// Warning on the format string for printf
+//   example\misc\printf.cpp
+#define BOOST_HANA_WORKAROUND_MSVC_PRINTF_WARNING_506518
+// Explicit instantiation involving decltype
+//   example\tutorial\introspection.cpp
+#define BOOST_HANA_WORKAROUND_MSVC_DECLTYPE_EXPLICIT_SPECIALIZATION_508556
 // Nested generic lambda
 //   test\index_if.cpp
 #define BOOST_HANA_WORKAROUND_MSVC_NESTED_GENERIC_LAMBDA_615453
+// Pack expansion of decltype
+//   test\detail\variadic\at.cpp
+//   test\detail\variadic\drop_into.cpp
+#define BOOST_HANA_WORKAROUND_MSVC_PACKEXPANSION_DECLTYPE_616024
+// Pack expansion of decltype
+//   example\hash.cpp
+#define BOOST_HANA_WORKAROUND_MSVC_PACKEXPANSION_DECLTYPE_616094
+// Narrowing warning on constant float
+//   example\core\convert\embedding.cpp
+#define BOOST_HANA_WORKAROUND_MSVC_NARROWING_CONVERSION_FLOAT_616032
+// decltype behavior difference when comparing character array and std::string
+#define BOOST_HANA_WORKAROUND_MSVC_DECLTYPE_ARRAY_616099
+// Parser error when using '{}' in template arguments
+#define BOOST_HANA_WORKAROUND_MSVC_PARSE_BRACE_616118
+#define BOOST_HANA_WORKAROUND_MSVC_VARIABLE_TEMPLATE_EXPLICIT_SPECIALIZATION_616151
+// constexpr function isn't evaluated correctly in SFINAE context
+#define BOOST_HANA_WORKAROUND_MSVC_SFINAE_CONSTEXPR_616157
+// Generic lambda preparsing and static capture
+#define BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_NAME_HIDING_616190
+
+// Issues fixed after 15.7 RTM
+#ifndef BOOST_HANA_WORKAROUND_MSVC_DISABLE_FIXED_ONES
+// Fixed by commit f4e60b2ecc169b0a5ec51d713125801adae24bc2, 20180323
+// Note, the workaround requires /Zc:externConstexpr
+#define BOOST_HANA_WORKAROUND_MSVC_NONTYPE_TEMPLATE_PARAMETER_INTERNAL
+
+// Fixed by commit c9999d916f1d73bc852de709607b2ca60e76a4c9, 20180513
+#define BOOST_HANA_WORKAROUND_MSVC_CONSTEXPR_NULLPTR
+#define BOOST_HANA_WORKAROUND_MSVC_CONSTEXPR_ARRAY_399280
+
+// error C2131: expression did not evaluate to a constant
+//   test\_include\auto\for_each.hpp
+#define BOOST_HANA_WORKAROUND_MSVC_FOR_EACH_DISABLETEST
+
+//   test\functional\placeholder.cpp
+#define BOOST_HANA_WORKAROUND_MSVC_CONSTEXPR_ADDRESS_DISABLETEST
+#define BOOST_HANA_WORKAROUND_MSVC_CONSTEXPR_ARRAY_DISABLETEST
+#endif
 
 // Issues fixed conditionally
 #define BOOST_HANA_WORKAROUND_MSVC_EMPTYBASE
@@ -50,26 +82,16 @@ Distributed under the Boost Software License, Version 1.0.
 // Known test failures
 // generic lambda and sizeof...
 //   test\type\is_valid.cpp
-#define BOOST_HANA_WORKAROUND_MSVC_269943_DISABLETEST
-// error C2131: expression did not evaluate to a constant
-//   test\_include\auto\for_each.hpp
-#define BOOST_HANA_WORKAROUND_MSVC_FOR_EACH_DISABLETEST
+#define BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_RETURN_TYPE_269943_DISABLETEST
+// Member with the same name as the enclosing class
+//   test\issues\github_113.cpp
+#define BOOST_HANA_WORKAROUND_MSVC_PARSEQNAME_616018_DISABLETEST
 // error C3520: 'Args': parameter pack must be expanded in this context
 //   example\tutorial\integral-branching.cpp
-#define BOOST_HANA_WORKAROUND_MSVC_LAMBDA_CAPTURE_PARAMETERPACK_DISABLETEST
-//   test\functional\placeholder.cpp
-#define BOOST_HANA_WORKAROUND_MSVC_CONSTEXPR_ADDRESS_DISABLETEST
-#define BOOST_HANA_WORKAROUND_MSVC_CONSTEXPR_ARRAY_DISABLETEST
+#define BOOST_HANA_WORKAROUND_MSVC_LAMBDA_CAPTURE_PARAMETERPACK_616098_DISABLETEST
 
-// Member with the same name as the enclosing class
-#if 0
-struct S {
-    int S;
-    using type = decltype(&S::S);
-};
-#endif
-#define BOOST_HANA_WORKAROUND_MSVC_GITHUB113_DISABLETEST
 // Member with array type
+//   test\issues\github_365.cpp
 #define BOOST_HANA_WORKAROUND_MSVC_GITHUB365_DISABLETEST
 
 // Source issues
@@ -81,6 +103,7 @@ struct S {
 // For the related tests to pass, the following logic in boost 1.64 should be updated:
 //
 //   boost\fusion\container\deque\deque_fwd.hpp
+//   boost\fusion\container\map\map_fwd.hpp
 //
 //   // MSVC variadics at this point in time is not ready yet (ICE!)
 //   #if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1900))

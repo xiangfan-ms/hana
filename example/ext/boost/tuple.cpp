@@ -14,7 +14,7 @@
 namespace hana = boost::hana;
 
 
-#ifdef BOOST_HANA_WORKAROUND_MSVC_DECLTYPE_ARRAY
+#ifdef BOOST_HANA_WORKAROUND_MSVC_DECLTYPE_ARRAY_616099
 BOOST_HANA_NAMESPACE_BEGIN namespace detail {
     template <std::size_t N>
     struct EqualityComparable<std::string, char[N], void> : std::true_type {

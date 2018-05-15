@@ -172,7 +172,7 @@ int main() {
         auto f = [](auto ...x) { (void)sizeof...(x); /* -Wunused-param */ };
         auto g = [](auto ...x) -> char(*)[sizeof...(x)] { };
         BOOST_HANA_CONSTANT_CHECK(hana::is_valid(f)());
-#ifndef BOOST_HANA_WORKAROUND_MSVC_269943_DISABLETEST
+#ifndef BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_RETURN_TYPE_269943_DISABLETEST
         BOOST_HANA_CONSTANT_CHECK(hana::not_(hana::is_valid(g)()));
 #endif
     }

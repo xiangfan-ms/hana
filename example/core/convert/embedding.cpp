@@ -26,7 +26,7 @@ namespace boost { namespace hana {
 }}
 
 int main() {
-#ifdef BOOST_HANA_WORKAROUND_MSVC_NARROWING_CONVERSION_FLOAT
+#ifdef BOOST_HANA_WORKAROUND_MSVC_NARROWING_CONVERSION_FLOAT_616032
     BOOST_HANA_RUNTIME_CHECK(
         hana::to<std::vector<int>>(std::vector<float>{1.1f, 2.2f, 3.3f})
                         ==
