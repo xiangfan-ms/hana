@@ -27,6 +27,7 @@ Distributed under the Boost Software License, Version 1.0.
 #define BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_RETURN_TYPE
 #define BOOST_HANA_WORKAROUND_MSVC_PACKEXPANSION_DECLTYPE
 #define BOOST_HANA_WORKAROUND_MSVC_PREPROCESSOR
+#define BOOST_HANA_WORKAROUND_MSVC_RDPARSER_TEMPLATEID
 
 // Warning on the format string for printf
 //   example\misc\printf.cpp
