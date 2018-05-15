@@ -21,6 +21,12 @@ struct static_nested_member_array { static int member[3]; };
 struct nested_template_struct { template <typename ...> struct nested; };
 struct nested_template_alias { template <typename ...> using nested = void; };
 
+#ifdef BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_RETURN_TYPE_269943
+struct generic_lambda {
+    template<typename... T> auto operator()(T ...x) -> char(*)[sizeof...(x)] {}
+};
+#endif
+
 int main() {
     // Check for a non-static member
     {
@@ -172,7 +178,9 @@ int main() {
         auto f = [](auto ...x) { (void)sizeof...(x); /* -Wunused-param */ };
         auto g = [](auto ...x) -> char(*)[sizeof...(x)] { };
         BOOST_HANA_CONSTANT_CHECK(hana::is_valid(f)());
-#ifndef BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_RETURN_TYPE_269943_DISABLETEST
+#ifdef BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_RETURN_TYPE_269943
+        BOOST_HANA_CONSTANT_CHECK(hana::not_(hana::is_valid(generic_lambda{})()));
+#else
         BOOST_HANA_CONSTANT_CHECK(hana::not_(hana::is_valid(g)()));
 #endif
     }

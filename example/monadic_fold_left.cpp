@@ -14,7 +14,7 @@
 namespace hana = boost::hana;
 
 
-#ifdef BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_RETURN_TYPE
+#ifdef BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_RETURN_TYPE_610227
 struct lambda {
     template<typename T, typename U> auto operator()(T&& t, U&& u) -> hana::type<
         std::decay_t<decltype(true ? hana::traits::declval(t) : hana::traits::declval(u))>

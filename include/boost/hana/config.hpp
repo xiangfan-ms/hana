@@ -20,16 +20,19 @@ Distributed under the Boost Software License, Version 1.0.
 #if defined(_MSC_VER) && !defined(__clang__) // MSVC
     // This must be checked first, because otherwise it produces a fatal
     // error due to unrecognized #warning directives used below.
-//#   pragma message("Warning: the native Microsoft compiler is not supported due to lack of proper C++14 support.")
+#if _MSC_FULL_VER < 191426428
+#   pragma message("Warning: the native Microsoft compiler is not supported due to lack of proper C++14 support.")
+#endif
 
 // Active issues
-#define BOOST_HANA_WORKAROUND_MSVC_MULTIPLECTOR
-#define BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_RETURN_TYPE
-#define BOOST_HANA_WORKAROUND_MSVC_PACKEXPANSION_DECLTYPE
-#define BOOST_HANA_WORKAROUND_MSVC_PREPROCESSOR
-#define BOOST_HANA_WORKAROUND_MSVC_RDPARSER_TEMPLATEID
-
-// Warning on the format string for printf
+// Multiple copy/move ctors
+#define BOOST_HANA_WORKAROUND_MSVC_MULTIPLECTOR_106654
+// Generic lambda and sizeof...
+//   test\type\is_valid.cpp
+#define BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_RETURN_TYPE_269943
+// Return type of generic lambda is emitted as a type token directly after pre-parsing
+#define BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_RETURN_TYPE_610227
+// ICE when try to give warning on the format string for printf
 //   example\misc\printf.cpp
 #define BOOST_HANA_WORKAROUND_MSVC_PRINTF_WARNING_506518
 // Explicit instantiation involving decltype
@@ -42,6 +45,8 @@ Distributed under the Boost Software License, Version 1.0.
 //   test\detail\variadic\at.cpp
 //   test\detail\variadic\drop_into.cpp
 #define BOOST_HANA_WORKAROUND_MSVC_PACKEXPANSION_DECLTYPE_616024
+// Variadic macro expansion
+#define BOOST_HANA_WORKAROUND_MSVC_PREPROCESSOR_616033
 // Pack expansion of decltype
 //   example\hash.cpp
 #define BOOST_HANA_WORKAROUND_MSVC_PACKEXPANSION_DECLTYPE_616094
@@ -57,6 +62,8 @@ Distributed under the Boost Software License, Version 1.0.
 #define BOOST_HANA_WORKAROUND_MSVC_SFINAE_CONSTEXPR_616157
 // Generic lambda preparsing and static capture
 #define BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_NAME_HIDING_616190
+// RDParser incorrectly parses a comparison operation as a template id
+#define BOOST_HANA_WORKAROUND_MSVC_RDPARSER_TEMPLATEID_616568
 
 // Issues fixed after 15.7 RTM
 #ifndef BOOST_HANA_WORKAROUND_MSVC_DISABLE_FIXED_ONES
@@ -81,9 +88,6 @@ Distributed under the Boost Software License, Version 1.0.
 #define BOOST_HANA_WORKAROUND_MSVC_EMPTYBASE
 
 // Known test failures
-// generic lambda and sizeof...
-//   test\type\is_valid.cpp
-#define BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_RETURN_TYPE_269943_DISABLETEST
 // Member with the same name as the enclosing class
 //   test\issues\github_113.cpp
 #define BOOST_HANA_WORKAROUND_MSVC_PARSEQNAME_616018_DISABLETEST
@@ -186,7 +190,9 @@ Distributed under the Boost Software License, Version 1.0.
 //////////////////////////////////////////////////////////////////////////////
 #if (__cplusplus < 201400)
 #   if defined(_MSC_VER)
-//#       pragma message("Warning: Your compiler doesn't provide C++14 or higher capabilities. Try adding the compiler flag '-std=c++14' or '-std=c++1y'.")
+#if _MSC_FULL_VER < 191426428
+#       pragma message("Warning: Your compiler doesn't provide C++14 or higher capabilities. Try adding the compiler flag '-std=c++14' or '-std=c++1y'.")
+#endif
 #   else
 #       warning "Your compiler doesn't provide C++14 or higher capabilities. Try adding the compiler flag '-std=c++14' or '-std=c++1y'."
 #   endif

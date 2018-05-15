@@ -14,7 +14,7 @@ namespace hana = boost::hana;
 struct Trap1 {
     Trap1() = default;
     Trap1(Trap1 const&) = default;
-#ifndef BOOST_HANA_WORKAROUND_MSVC_MULTIPLECTOR
+#ifndef BOOST_HANA_WORKAROUND_MSVC_MULTIPLECTOR_106654
     Trap1(Trap1&) = default;
 #endif
     Trap1(Trap1&&) = default;
@@ -29,7 +29,7 @@ struct Trap1 {
 struct Trap2 {
     Trap2() = default;
     Trap2(Trap2 const&) = default;
-#ifndef BOOST_HANA_WORKAROUND_MSVC_MULTIPLECTOR
+#ifndef BOOST_HANA_WORKAROUND_MSVC_MULTIPLECTOR_106654
     Trap2(Trap2&) = default;
 #endif
     Trap2(Trap2&&) = default;
@@ -44,7 +44,7 @@ struct Trap2 {
 struct Trap3 {
     Trap3() = default;
     Trap3(Trap3 const&) = default;
-#ifndef BOOST_HANA_WORKAROUND_MSVC_MULTIPLECTOR
+#ifndef BOOST_HANA_WORKAROUND_MSVC_MULTIPLECTOR_106654
 	Trap3(Trap3&) = default;
 #endif
     Trap3(Trap3&&) = default;
