@@ -32,9 +32,6 @@ Distributed under the Boost Software License, Version 1.0.
 #define BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_RETURN_TYPE_269943
 // Return type of generic lambda is emitted as a type token directly after pre-parsing
 #define BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_RETURN_TYPE_610227
-// ICE when try to give warning on the format string for printf
-//   example\misc\printf.cpp
-#define BOOST_HANA_WORKAROUND_MSVC_PRINTF_WARNING_506518
 // Explicit instantiation involving decltype
 //   example\tutorial\introspection.cpp
 #define BOOST_HANA_WORKAROUND_MSVC_DECLTYPE_EXPLICIT_SPECIALIZATION_508556
@@ -53,8 +50,6 @@ Distributed under the Boost Software License, Version 1.0.
 // Narrowing warning on constant float
 //   example\core\convert\embedding.cpp
 #define BOOST_HANA_WORKAROUND_MSVC_NARROWING_CONVERSION_FLOAT_616032
-// decltype behavior difference when comparing character array and std::string
-#define BOOST_HANA_WORKAROUND_MSVC_DECLTYPE_ARRAY_616099
 // Parser error when using '{}' in template arguments
 #define BOOST_HANA_WORKAROUND_MSVC_PARSE_BRACE_616118
 #define BOOST_HANA_WORKAROUND_MSVC_VARIABLE_TEMPLATE_EXPLICIT_SPECIALIZATION_616151
@@ -82,6 +77,20 @@ Distributed under the Boost Software License, Version 1.0.
 //   test\functional\placeholder.cpp
 #define BOOST_HANA_WORKAROUND_MSVC_CONSTEXPR_ADDRESS_DISABLETEST
 #define BOOST_HANA_WORKAROUND_MSVC_CONSTEXPR_ARRAY_DISABLETEST
+
+// Fixed by commit 9c4869e61b5ad301f1fe265193241d2c74729a1c, 20180518
+// ICE when try to give warning on the format string for printf
+//   example\misc\printf.cpp
+#define BOOST_HANA_WORKAROUND_MSVC_PRINTF_WARNING_506518
+
+// Fixed by commit 095130d02c8805517bbaf93d92415041eecbca00, 20180521
+// decltype behavior difference when comparing character array and std::string
+#define BOOST_HANA_WORKAROUND_MSVC_DECLTYPE_ARRAY_616099
+
+// Fixed by commit a488f9dccbfb4ceade4104c0d8d00e25d6ac7d88, 20180521
+// Member with array type
+//   test\issues\github_365.cpp
+#define BOOST_HANA_WORKAROUND_MSVC_GITHUB365_DISABLETEST
 #endif
 
 // Issues fixed conditionally
@@ -94,10 +103,6 @@ Distributed under the Boost Software License, Version 1.0.
 // error C3520: 'Args': parameter pack must be expanded in this context
 //   example\tutorial\integral-branching.cpp
 #define BOOST_HANA_WORKAROUND_MSVC_LAMBDA_CAPTURE_PARAMETERPACK_616098_DISABLETEST
-
-// Member with array type
-//   test\issues\github_365.cpp
-#define BOOST_HANA_WORKAROUND_MSVC_GITHUB365_DISABLETEST
 
 // Source issues
 #define BOOST_HANA_WORKAROUND_MSVC_IS_CONVERTIBLE_INCOMPLETE_TAG
