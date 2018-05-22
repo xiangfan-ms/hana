@@ -55,8 +55,6 @@ Distributed under the Boost Software License, Version 1.0.
 #define BOOST_HANA_WORKAROUND_MSVC_VARIABLE_TEMPLATE_EXPLICIT_SPECIALIZATION_616151
 // constexpr function isn't evaluated correctly in SFINAE context
 #define BOOST_HANA_WORKAROUND_MSVC_SFINAE_CONSTEXPR_616157
-// Generic lambda preparsing and static capture
-#define BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_NAME_HIDING_616190
 // RDParser incorrectly parses a comparison operation as a template id
 #define BOOST_HANA_WORKAROUND_MSVC_RDPARSER_TEMPLATEID_616568
 
@@ -78,6 +76,10 @@ Distributed under the Boost Software License, Version 1.0.
 #define BOOST_HANA_WORKAROUND_MSVC_CONSTEXPR_ADDRESS_DISABLETEST
 #define BOOST_HANA_WORKAROUND_MSVC_CONSTEXPR_ARRAY_DISABLETEST
 
+// Fixed by commit 5ef87ec5d20b45552784a40fe455c04c257c7b08, 20180516
+// Generic lambda preparsing and static capture
+#define BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_NAME_HIDING_616190
+
 // Fixed by commit 9c4869e61b5ad301f1fe265193241d2c74729a1c, 20180518
 // ICE when try to give warning on the format string for printf
 //   example\misc\printf.cpp
@@ -85,21 +87,24 @@ Distributed under the Boost Software License, Version 1.0.
 
 // Fixed by commit 095130d02c8805517bbaf93d92415041eecbca00, 20180521
 // decltype behavior difference when comparing character array and std::string
+//   test\orderable.cpp
 #define BOOST_HANA_WORKAROUND_MSVC_DECLTYPE_ARRAY_616099
 
 // Fixed by commit a488f9dccbfb4ceade4104c0d8d00e25d6ac7d88, 20180521
 // Member with array type
 //   test\issues\github_365.cpp
 #define BOOST_HANA_WORKAROUND_MSVC_GITHUB365_DISABLETEST
+
+// Fixed by commit 7a572ef6535746f1cee5adaa2a41edafca6cf1bc, 20180522
+// Member with the same name as the enclosing class
+//   test\issues\github_113.cpp
+#define BOOST_HANA_WORKAROUND_MSVC_PARSEQNAME_616018_DISABLETEST
 #endif
 
 // Issues fixed conditionally
 #define BOOST_HANA_WORKAROUND_MSVC_EMPTYBASE
 
 // Known test failures
-// Member with the same name as the enclosing class
-//   test\issues\github_113.cpp
-#define BOOST_HANA_WORKAROUND_MSVC_PARSEQNAME_616018_DISABLETEST
 // error C3520: 'Args': parameter pack must be expanded in this context
 //   example\tutorial\integral-branching.cpp
 #define BOOST_HANA_WORKAROUND_MSVC_LAMBDA_CAPTURE_PARAMETERPACK_616098_DISABLETEST
