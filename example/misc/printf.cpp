@@ -65,7 +65,7 @@ int main() {
         auto fmt2 = hana::to<char const*>(fmt);
         std::printf(fmt2, args...);
 #else
-        std::printf(fmt, args...);
+        std::printf(hana::to<char const*>(fmt), args...);
 #endif
     });
 }
