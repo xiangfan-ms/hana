@@ -47,12 +47,8 @@ Distributed under the Boost Software License, Version 1.0.
 // Pack expansion of decltype
 //   example\hash.cpp
 #define BOOST_HANA_WORKAROUND_MSVC_PACKEXPANSION_DECLTYPE_616094
-// Narrowing warning on constant float
-//   example\core\convert\embedding.cpp
-#define BOOST_HANA_WORKAROUND_MSVC_NARROWING_CONVERSION_FLOAT_616032
 // Parser error when using '{}' in template arguments
 #define BOOST_HANA_WORKAROUND_MSVC_PARSE_BRACE_616118
-#define BOOST_HANA_WORKAROUND_MSVC_VARIABLE_TEMPLATE_EXPLICIT_SPECIALIZATION_616151
 // constexpr function isn't evaluated correctly in SFINAE context
 #define BOOST_HANA_WORKAROUND_MSVC_SFINAE_CONSTEXPR_616157
 // RDParser incorrectly parses a comparison operation as a template id
@@ -99,15 +95,23 @@ Distributed under the Boost Software License, Version 1.0.
 // Member with the same name as the enclosing class
 //   test\issues\github_113.cpp
 #define BOOST_HANA_WORKAROUND_MSVC_PARSEQNAME_616018_DISABLETEST
-#endif
 
-// Issues fixed conditionally
-#define BOOST_HANA_WORKAROUND_MSVC_EMPTYBASE
+// Fixed by commit 3c9a06971bf4c7811db1a21017ec509a56d60e59, 20180524
+#define BOOST_HANA_WORKAROUND_MSVC_VARIABLE_TEMPLATE_EXPLICIT_SPECIALIZATION_616151
 
-// Known test failures
 // error C3520: 'Args': parameter pack must be expanded in this context
 //   example\tutorial\integral-branching.cpp
 #define BOOST_HANA_WORKAROUND_MSVC_LAMBDA_CAPTURE_PARAMETERPACK_616098_DISABLETEST
+
+// Fixed by commit 5b1338ce09f7827e5b9248bcba2f519043044fef, 20180529
+// Narrowing warning on constant float
+//   example\core\convert\embedding.cpp
+#define BOOST_HANA_WORKAROUND_MSVC_NARROWING_CONVERSION_FLOAT_616032
+#endif
+
+// Issues fixed conditionally
+// Requires __declspec(empty_bases)
+#define BOOST_HANA_WORKAROUND_MSVC_EMPTYBASE
 
 // Source issues
 #define BOOST_HANA_WORKAROUND_MSVC_IS_CONVERTIBLE_INCOMPLETE_TAG
