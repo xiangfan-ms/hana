@@ -144,8 +144,8 @@ namespace boost { namespace hana { namespace test {
 
         template <typename Xs>
         TestFoldable(Xs xs) : TestFoldable<S, laws>{xs} {
-            _injection<0> f{};
-            auto z = x<999>{};
+            constexpr _injection<0> f{}; // workaround for 15.8
+            constexpr auto z = x<999>{}; // workaround for 15.8
             constexpr auto list = make<S>;
 
             //////////////////////////////////////////////////////////////////

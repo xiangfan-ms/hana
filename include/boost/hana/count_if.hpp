@@ -58,7 +58,7 @@ BOOST_HANA_NAMESPACE_BEGIN
                     static_cast<bool>(hana::value<decltype((*pred)(static_cast<Xs&&>(xs)))>())...
                 };
                 constexpr std::size_t total = detail::count(
-                    results, results + sizeof(results), true
+                    results, results + sizeof...(Xs) + 1, true  // workaround
                 );
                 return hana::size_c<total>;
             }

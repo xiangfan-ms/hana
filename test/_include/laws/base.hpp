@@ -123,11 +123,11 @@ namespace boost { namespace hana {
             using hana_tag = InjectionResult;
             static constexpr int injection_id = i;
             hana::tuple<X...> args;
-            Tracked tracker;
+            //Tracked tracker;
 
             template <typename ...Y, typename = decltype(tuple<X...>{std::declval<Y>()...})>
             constexpr explicit injection_result(Y&& ...y)
-                : args{static_cast<Y&&>(y)...}, tracker{i}
+                : args{static_cast<Y&&>(y)...}//, tracker{i}
             { }
         };
 
@@ -245,7 +245,7 @@ namespace boost { namespace hana {
             static constexpr int value = i;
             constexpr operator int() const { return value; }
             using hana_tag = Integer<policy>;
-            Tracked tracker{i};
+            //Tracked tracker{i};
         };
 
         template <int i, Policy policy>

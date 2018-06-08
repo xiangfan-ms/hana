@@ -55,9 +55,9 @@ int main() {
     // Comparable
     //////////////////////////////////////////////////////////////////////////
     {
-        hana::test::_injection<0> f{};
-        auto x = numeric(1);
-        auto y = numeric(2);
+        constexpr hana::test::_injection<0> f{}; // workaround
+        constexpr auto x = numeric(1);
+        constexpr auto y = numeric(2);
 
         // equal
         {
@@ -92,7 +92,7 @@ int main() {
         auto ord = numeric;
 
         // _injection is also monotonic
-        hana::test::_injection<0> f{};
+        constexpr hana::test::_injection<0> f{}; // workaround
 
         // less
         {

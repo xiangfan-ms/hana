@@ -147,6 +147,9 @@ Distributed under the Boost Software License, Version 1.0.
 #if _MSVC_LANG > 201402
 // Use BOOST_HANA_STRING if /std:c++17 is used
 #define BOOST_HANA_WORKAROUND_MSVC_NO_STRING_UDL
+
+#define BOOST_HANA_CONSTEXPR_STATELESS_LAMBDA constexpr
+#define BOOST_HANA_CONFIG_HAS_CONSTEXPR_LAMBDA
 #endif
 
 // boost::mpl::aux::vector_tag depends on BOOST_MPL_CFG_TYPEOF_BASED_SEQUENCES
@@ -265,9 +268,9 @@ Distributed under the Boost Software License, Version 1.0.
 // (captureless lambdas only).
 #if defined(__cplusplus) && __cplusplus > 201402L
 #   define BOOST_HANA_CONSTEXPR_STATELESS_LAMBDA constexpr
-// #   define BOOST_HANA_CONFIG_HAS_CONSTEXPR_LAMBDA
+ #   define BOOST_HANA_CONFIG_HAS_CONSTEXPR_LAMBDA
 #else
-#   define BOOST_HANA_CONSTEXPR_STATELESS_LAMBDA /* nothing */
+//#   define BOOST_HANA_CONSTEXPR_STATELESS_LAMBDA /* nothing */
 #endif
 
 // `BOOST_HANA_CONSTEXPR_LAMBDA` expands to `constexpr` if constexpr lambdas

@@ -162,7 +162,7 @@ template <int i>
 constexpr auto c = hana::int_c<i>;
 
 int main() {
-    auto f = [](auto n) { return n + hana::int_c<10>; };
+    constexpr auto f = [](auto n) { return n + hana::int_c<10>; }; // workaround
     auto g = [](auto n) { return n + hana::int_c<100>; };
 
     // union_
