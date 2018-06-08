@@ -54,8 +54,8 @@ Distributed under the Boost Software License, Version 1.0.
 // RDParser incorrectly parses a comparison operation as a template id
 #define BOOST_HANA_WORKAROUND_MSVC_RDPARSER_TEMPLATEID_616568
 
-// Issues fixed after 15.7 RTM
-#ifndef BOOST_HANA_WORKAROUND_MSVC_DISABLE_FIXED_ONES
+// Issues fixed in 15.8
+#if _MSC_VER < 1915
 // Fixed by commit f4e60b2ecc169b0a5ec51d713125801adae24bc2, 20180323
 // Note, the workaround requires /Zc:externConstexpr
 #define BOOST_HANA_WORKAROUND_MSVC_NONTYPE_TEMPLATE_PARAMETER_INTERNAL
