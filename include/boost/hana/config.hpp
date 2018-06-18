@@ -32,23 +32,12 @@ Distributed under the Boost Software License, Version 1.0.
 #define BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_RETURN_TYPE_269943
 // Return type of generic lambda is emitted as a type token directly after pre-parsing
 #define BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_RETURN_TYPE_610227
-// Explicit instantiation involving decltype
-//   example\tutorial\introspection.cpp
-#define BOOST_HANA_WORKAROUND_MSVC_DECLTYPE_EXPLICIT_SPECIALIZATION_508556
-// Nested generic lambda
-//   test\index_if.cpp
-#define BOOST_HANA_WORKAROUND_MSVC_NESTED_GENERIC_LAMBDA_615453
 // Pack expansion of decltype
 //   test\detail\variadic\at.cpp
 //   test\detail\variadic\drop_into.cpp
 #define BOOST_HANA_WORKAROUND_MSVC_PACKEXPANSION_DECLTYPE_616024
 // Variadic macro expansion
 #define BOOST_HANA_WORKAROUND_MSVC_PREPROCESSOR_616033
-// Pack expansion of decltype
-//   example\hash.cpp
-#define BOOST_HANA_WORKAROUND_MSVC_PACKEXPANSION_DECLTYPE_616094
-// Parser error when using '{}' in template arguments
-#define BOOST_HANA_WORKAROUND_MSVC_PARSE_BRACE_616118
 // constexpr function isn't evaluated correctly in SFINAE context
 #define BOOST_HANA_WORKAROUND_MSVC_SFINAE_CONSTEXPR_616157
 // RDParser incorrectly parses a comparison operation as a template id
@@ -107,6 +96,25 @@ Distributed under the Boost Software License, Version 1.0.
 // Narrowing warning on constant float
 //   example\core\convert\embedding.cpp
 #define BOOST_HANA_WORKAROUND_MSVC_NARROWING_CONVERSION_FLOAT_616032
+
+// Fixed by commit be8778ab26957ae7c6a36376a9ae2d049d64a095, 20180611
+// Pack expansion of decltype
+//   example\hash.cpp
+#define BOOST_HANA_WORKAROUND_MSVC_PACKEXPANSION_DECLTYPE_616094
+
+// Fixed by commit 5fd2bf807a0320167c72d9960b32d823a634c04d, 20180613
+// Parser error when using '{}' in template arguments
+#define BOOST_HANA_WORKAROUND_MSVC_PARSE_BRACE_616118
+
+// Fixed by commit 120bb866980c8a1abcdd41653fa084d6c8bcd327, 20180615
+// Nested generic lambda
+//   test\index_if.cpp
+#define BOOST_HANA_WORKAROUND_MSVC_NESTED_GENERIC_LAMBDA_615453
+
+// Fixed by commit 884bd374a459330721cf1d2cc96d231de3bc68f9, 20180615
+// Explicit instantiation involving decltype
+//   example\tutorial\introspection.cpp
+#define BOOST_HANA_WORKAROUND_MSVC_DECLTYPE_EXPLICIT_SPECIALIZATION_508556
 #endif
 
 // Issues fixed conditionally
