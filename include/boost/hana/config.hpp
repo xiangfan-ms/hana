@@ -27,11 +27,6 @@ Distributed under the Boost Software License, Version 1.0.
 // Active issues
 // Multiple copy/move ctors
 #define BOOST_HANA_WORKAROUND_MSVC_MULTIPLECTOR_106654
-// Generic lambda and sizeof...
-//   test\type\is_valid.cpp
-#define BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_RETURN_TYPE_269943
-// Return type of generic lambda is emitted as a type token directly after pre-parsing
-#define BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_RETURN_TYPE_610227
 // Pack expansion of decltype
 //   test\detail\variadic\at.cpp
 //   test\detail\variadic\drop_into.cpp
@@ -105,6 +100,14 @@ Distributed under the Boost Software License, Version 1.0.
 // Fixed by commit 5fd2bf807a0320167c72d9960b32d823a634c04d, 20180613
 // Parser error when using '{}' in template arguments
 #define BOOST_HANA_WORKAROUND_MSVC_PARSE_BRACE_616118
+
+// Fixed by commit ce4f90349574b4acc955cf1eb04d7dc6a03a568e, 20180614
+// Generic lambda and sizeof...
+//   test\type\is_valid.cpp
+#define BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_RETURN_TYPE_269943
+
+// Return type of generic lambda is emitted as a type token directly after pre-parsing
+#define BOOST_HANA_WORKAROUND_MSVC_GENERIC_LAMBDA_RETURN_TYPE_610227
 
 // Fixed by commit 120bb866980c8a1abcdd41653fa084d6c8bcd327, 20180615
 // Nested generic lambda
