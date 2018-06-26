@@ -27,10 +27,6 @@ Distributed under the Boost Software License, Version 1.0.
 // Active issues
 // Multiple copy/move ctors
 #define BOOST_HANA_WORKAROUND_MSVC_MULTIPLECTOR_106654
-// Pack expansion of decltype
-//   test\detail\variadic\at.cpp
-//   test\detail\variadic\drop_into.cpp
-#define BOOST_HANA_WORKAROUND_MSVC_PACKEXPANSION_DECLTYPE_616024
 
 // Issues fixed in 15.8
 #if _MSC_VER < 1915
@@ -120,6 +116,12 @@ Distributed under the Boost Software License, Version 1.0.
 // Fixed by commit ff9ef6d9fe43c54f7f4680a2701ad73de18f9afb, 20180620
 // constexpr function isn't evaluated correctly in SFINAE context
 #define BOOST_HANA_WORKAROUND_MSVC_SFINAE_CONSTEXPR_616157
+
+// Fixed by commit 19c35b8c8a9bd7dda4bb44cac1d9d446ed1b20ac, 20180625
+// Pack expansion of decltype
+//   test\detail\variadic\at.cpp
+//   test\detail\variadic\drop_into.cpp
+#define BOOST_HANA_WORKAROUND_MSVC_PACKEXPANSION_DECLTYPE_616024
 #endif
 
 // Issues fixed conditionally
