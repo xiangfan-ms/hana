@@ -109,10 +109,6 @@ Distributed under the Boost Software License, Version 1.0.
 //   example\tutorial\introspection.cpp
 #define BOOST_HANA_WORKAROUND_MSVC_DECLTYPE_EXPLICIT_SPECIALIZATION_508556
 
-// Fixed by commit 0494ff26ca4f08f07816cf52112e43f8145d9d6f, 20180620
-// RDParser incorrectly parses a comparison operation as a template id
-#define BOOST_HANA_WORKAROUND_MSVC_RDPARSER_TEMPLATEID_616568
-
 // Fixed by commit ff9ef6d9fe43c54f7f4680a2701ad73de18f9afb, 20180620
 // constexpr function isn't evaluated correctly in SFINAE context
 #define BOOST_HANA_WORKAROUND_MSVC_SFINAE_CONSTEXPR_616157
@@ -123,6 +119,12 @@ Distributed under the Boost Software License, Version 1.0.
 //   test\detail\variadic\drop_into.cpp
 #define BOOST_HANA_WORKAROUND_MSVC_PACKEXPANSION_DECLTYPE_616024
 #endif
+
+// Issues fixed in the development branch
+// Fixed by commit 0494ff26ca4f08f07816cf52112e43f8145d9d6f, 20180620
+// RDParser incorrectly parses a comparison operation as a template id
+// This issue only impacts /permissive- or /std:c++17
+#define BOOST_HANA_WORKAROUND_MSVC_RDPARSER_TEMPLATEID_616568
 
 // Issues fixed conditionally
 // Requires __declspec(empty_bases)
