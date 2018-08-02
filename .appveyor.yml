@@ -46,8 +46,8 @@ install:
   ############################################################################
   # Setup the path to Clang-cl
   ############################################################################
-  - set PATH="C:\Program Files\LLVM\bin";%PATH%
-  - clang-cl -v
+  #- set PATH="C:\Program Files\LLVM\bin";%PATH%
+  #- clang-cl -v
 
 
 before_build:
@@ -58,5 +58,6 @@ before_build:
 build_script:
   - mkdir build
   - cd build
-  - cmake .. -GNinja -DCMAKE_CXX_COMPILER=clang-cl
+  #- cmake .. -GNinja -DCMAKE_CXX_COMPILER=clang-cl
+  - cmake .. -DBOOST_ROOT=C:\Libraries\boost_1_67_0 -D"CMAKE_CXX_FLAGS=/EHsc /Zc:ternary /bigobj /we4667" -DBOOST_HANA_ENABLE_STRING_UDL=false
   - cmake --build . --target check
